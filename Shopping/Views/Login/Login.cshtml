@@ -1,0 +1,93 @@
+﻿@model Shopping.Models.User
+@{
+    ViewBag.Title = "Login";
+}
+
+<style>
+    
+</style>
+
+<body class=" justify-content-center" style="background-color: #33FFB7">
+
+    <div class="container col-10 row mx-auto ">
+         
+        <div class=" container col-4 ml-0" >
+            <center><button class="btn btn-primary position-absolute" style="bottom:0">Create</button></center>
+            <img src=" https://thumbs.dreamstime.com/b/scenery-mobile-wallpaper-nature-background-bamboo-portrait-view-scenery-mobile-wallpaper-nature-background-bamboo-113640891.jpg" class="img-responsive shadow-lg" style="min-height:70vh" />
+        </div>
+        <div class="col-8 bg-light  container-fluid">
+            <div class="col-12 text-center my-4"><h1>WELCOME !!</h1></div>
+            <div class="col-12 text-center my-4"><h2>Login</h2></div>
+            @using (Html.BeginForm("Autherize", "Login", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div>
+
+                    <hr />
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+
+                            <tr>
+
+
+                                <td>@Html.LabelFor(model => model.UserName)</td>
+                                <td>
+                                    @Html.EditorFor(model => model.UserName)
+                                    <span class="text-danger">@Html.ValidationMessageFor(model => model.UserName)</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+
+                                <td>   @Html.LabelFor(model => model.Password)</td>
+                                <td>
+                                    @Html.EditorFor(model => model.Password)
+                                    <span class="text-danger">  @Html.ValidationMessageFor(model => model.Password)</span>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td colspan="2">
+                                    <label class="field-E">@Html.DisplayFor(model => model.ErrorMesssage)</label>
+                                </td>
+                            </tr>
+
+
+
+
+
+
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <input type="submit" value="Login" class="btn btn-default btn-primary" />
+                                    <button type="button" class="btn " onclick="location.href='@Url.Action("AddOrEdit","SignUp")'"> Dont have Acount? Click here To Sign Up.</button>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+
+
+
+
+
+
+  
+
+
+  
+</body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

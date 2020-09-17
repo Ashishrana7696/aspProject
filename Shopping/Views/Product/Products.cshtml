@@ -1,0 +1,230 @@
+﻿@model IEnumerable<Shopping.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+    if (Session["UserId"] == null)
+    {
+        Response.Redirect("~/Login/Login");
+    }
+
+}
+
+<style>
+
+    @@media only screen and (max-width : 600px) {
+        .rr {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+        }
+        #aa{
+            text-overflow: ellipsis;
+        }
+    }
+        #as {
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+            transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+            padding: 14px 80px 18px 36px;
+            cursor: pointer;
+        }
+            #as:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+            }
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+       /* .card {
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+            transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+            padding: 14px 80px 18px 36px;
+            cursor: pointer;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+            }*/
+
+
+</style>
+<body>
+    <div class="container col-12">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary " style=" position: relative; padding-top: 0px;">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                  
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <form class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-danger mx-4"> <a class="text-white" href="@Url.Action("Logout", "Login")">LOG OUT</a> </button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Add","Product")'"> Add New Product</button>
+                </form>
+            </div>
+        </nav>
+
+
+
+
+
+
+
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Images/c1.png" alt="Los Angeles" width="1100" height="500">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Images/c2.png" alt="Chicago" width="1100" height="500">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Images/c3.png" alt="New York" width="1100" height="500">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+      
+
+
+        <div class="row container mr col-12 ">
+
+            <div class="container m-0  my-4 col-xs-2 col-sm-2 col-md-2 bg-light min-vh-70">
+                <center><h1> Filters</h1>  </center>
+                <hr />
+                <div class="container col-12 ">
+                    <h4 class="text-center"> Categories</h4>
+                    <i class="fas fa-angle-left"></i>  <h5 class="mt-4">FootWear</h5>
+                    <h5>Top waer</h5>
+                    <h5>Bottom Wear</h5>
+                    <h5>Accesoriesr</h5>
+                </div>
+
+                <hr />
+                <div class="container col-12 ">
+                    <h4 class="text-center"> Color</h4>
+                   
+                 
+                  <h5>Red</h5>
+                    <h5>Yellow</h5>
+                    <h5>Blue</h5>
+                    <h5>Black</h5>
+                </div>
+
+            </div>
+
+
+            <div class="container  my-4  col-xs-9 col-sm-9 col-md-9 col-lg-9 bg-light" style="margin-left:10px ;margin-right:15px">
+
+
+                
+                    <div class="card-group">
+                        @foreach (var items in Model)
+                        {
+                            <div class="col-xs-12 col-sm-6 col-md-3 mt-4">
+
+                                <div class="card ">
+                                    <img class="card-img-top" src="@Url.Content(items.ProductImage)" alt="Card image cap">
+                                    <div class="card-body ">
+                                        <h5 class="card-title">@Html.DisplayFor(model => items.ProductName) </h5>
+                                        <p class="card-text"> @Html.DisplayFor(model => items.Description)</p>
+                                        <h4 class="text-dark"> @Html.DisplayFor(model => items.Price)</h4>
+                                        <a href="#" class="btn btn-primary">Add To cart</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        }
+                   
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+      
+
+
+            <div class="container-fluid pt-4">
+                <div class="row  text-center">
+
+                    @foreach (var items in Model)
+                    {
+                        <div  class="rr col-xs-12 col-sm-6 col-md-3 mt-4 position-relative" style="border-radius:7px">
+
+                            <div class="container vh-80"> <img src="@Url.Content(items.ProductImage)" alt="hs" style="border-radius:7px" class="img-responsive min-vh-70" /></div>
+
+                          
+                            <div class=" col-12  container vh-20 " style="bottom:0;">
+                                <h3 class="text-primary font-italic"> @Html.DisplayFor(model => items.ProductName) </h3>
+                                <h4 class="text-dark"> @Html.DisplayFor(model => items.Price)</h4>
+                                <h4  id="aa " class=" text-danger "> @Html.DisplayFor(model => items.Description)</h4>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+</body>
